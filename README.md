@@ -18,4 +18,4 @@ This creates a tarball that `docker build` can work with.
 ## Build
 
 Run the normal:  
-`docker built .`
+`docker build .`

@@ -11,7 +11,7 @@ For now, all the Apache defaults are used.
 
 1. Get the RompR ZIP file from https://github.com/fatg3erman/RompR/releases
 1. Unzip the file.
-1. Tar the `rompr/` directory up: `tar xcvf rompr.tgz rompr`
+1. Tar the `rompr/` directory up: `tar cvf rompr.tgz rompr`
 
 This creates a tarball that `docker build` can work with.
 

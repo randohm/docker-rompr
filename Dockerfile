@@ -3,7 +3,7 @@ RUN apk add apache2 apache2-utils php7-apache2 php7-sqlite3 php7-json php7-pdo p
 COPY rompr.conf /etc/apache2/conf.d
 COPY run.sh /run.sh
 
-ARG ROMPR_VERSION=1.60.1
+ARG ROMPR_VERSION=1.61
 ARG ZIP_FILE=rompr-$ROMPR_VERSION.zip
 ARG FETCH_URL=https://github.com/fatg3erman/RompR/releases/download/$ROMPR_VERSION/$ZIP_FILE
 ADD $FETCH_URL /

@@ -1,16 +1,21 @@
-FROM alpine:3.17.0
-RUN apk add apache2 apache2-utils php8-apache2 php8-sqlite3 php8-json php8-pdo php8-pdo_sqlite php8-curl php8-gd php8-mbstring imagemagick php8-xml php8-simplexml php8-session php8-mysqli php8-pdo_mysql php8-dom php8-fileinfo
-COPY rompr.conf /etc/apache2/conf.d
+FROM archlinux/archlinux:base-20250114.0.298212
+RUN pacman -Sy --noconfirm apache unzip imagemagick libwmf libjxl php-apache php-sqlite php-gd php-intl python python-websockets python-trio-asyncio python-nest-asyncio
+COPY httpd.conf rompr.conf /etc/httpd/conf/
+RUN sed -i 's/;extension=pdo_sqlite/extension=pdo_sqlite/' /etc/php/php.ini && \
+    sed -i 's/;extension=sqlite3/extension=sqlite3/' /etc/php/php.ini && \
+    sed -i 's/;extension=curl/extension=curl/' /etc/php/php.ini && \
+    sed -i 's/;extension=gd/extension=gd/' /etc/php/php.ini && \
+    sed -i 's/;extension=intl/extension=intl/' /etc/php/php.ini
 COPY run.sh /run.sh
 
-ARG ROMPR_VERSION=1.61
+ARG ROMPR_VERSION=2.18
 ARG ZIP_FILE=rompr-$ROMPR_VERSION.zip
 ARG FETCH_URL=https://github.com/fatg3erman/RompR/releases/download/$ROMPR_VERSION/$ZIP_FILE
 ADD $FETCH_URL /
 RUN unzip $ZIP_FILE && \
     mkdir -p /rompr/prefs /rompr/albumart && \
     chown -R root:root /rompr && \
-    chown apache:apache /rompr/prefs /rompr/albumart
+    chown -R http:http /rompr/prefs /rompr/albumart
 
 EXPOSE 80
 ENTRYPOINT ["/run.sh"]

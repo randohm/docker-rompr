@@ -1,4 +1,4 @@
-FROM archlinux/archlinux:base-20250114.0.298212
+FROM archlinux/archlinux:base-20250808.0.397314
 RUN pacman -Sy --noconfirm apache unzip imagemagick libwmf libjxl php-apache php-sqlite php-gd php-intl python python-websockets python-trio-asyncio python-nest-asyncio
 COPY httpd.conf rompr.conf /etc/httpd/conf/
 RUN sed -i 's/;extension=pdo_sqlite/extension=pdo_sqlite/' /etc/php/php.ini && \
@@ -8,7 +8,7 @@ RUN sed -i 's/;extension=pdo_sqlite/extension=pdo_sqlite/' /etc/php/php.ini && \
     sed -i 's/;extension=intl/extension=intl/' /etc/php/php.ini
 COPY run.sh /run.sh
 
-ARG ROMPR_VERSION=2.18
+ARG ROMPR_VERSION=2.20
 ARG ZIP_FILE=rompr-$ROMPR_VERSION.zip
 ARG FETCH_URL=https://github.com/fatg3erman/RompR/releases/download/$ROMPR_VERSION/$ZIP_FILE
 ADD $FETCH_URL /
